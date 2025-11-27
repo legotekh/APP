@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
+fun ProfileScreen(modifier: Modifier = Modifier) {
     var labelText by rememberSaveable { mutableStateOf("Профіль") }
     Column(
         modifier = modifier.fillMaxSize().padding(32.dp),

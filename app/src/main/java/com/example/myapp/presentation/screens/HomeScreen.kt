@@ -14,25 +14,25 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun StreetsScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier) {
     val nestedNavController = rememberNavController()
     NavHost(
         navController = nestedNavController,
-        startDestination = "streets_sub_a",
+        startDestination = "home_sub_a", // змінив назву роута
         modifier = modifier
     ) {
-        composable("streets_sub_a") {
-            StreetsSubScreenA(onNavigateToB = { nestedNavController.navigate("streets_sub_b") })
+        composable("home_sub_a") {
+            HomeSubScreenA(onNavigateToB = { nestedNavController.navigate("home_sub_b") })
         }
-        composable("streets_sub_b") {
-            StreetsSubScreenB(onNavigateBack = { nestedNavController.popBackStack() })
+        composable("home_sub_b") {
+            HomeSubScreenB(onNavigateBack = { nestedNavController.popBackStack() })
         }
     }
 }
 
 @Composable
-fun StreetsSubScreenA(modifier: Modifier = Modifier, onNavigateToB: () -> Unit) {
-    var labelText by rememberSaveable { mutableStateOf("Це Підекран А") }
+fun HomeSubScreenA(modifier: Modifier = Modifier, onNavigateToB: () -> Unit) {
+    var labelText by rememberSaveable { mutableStateOf("Це екран Home (А)") }
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -41,19 +41,19 @@ fun StreetsSubScreenA(modifier: Modifier = Modifier, onNavigateToB: () -> Unit) 
         Text(text = labelText)
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { labelText = "Натиснуто!"; onNavigateToB() }) {
-            Text("Перейти далі")
+            Text("Детальніше")
         }
     }
 }
 
 @Composable
-fun StreetsSubScreenB(modifier: Modifier = Modifier, onNavigateBack: () -> Unit) {
+fun HomeSubScreenB(modifier: Modifier = Modifier, onNavigateBack: () -> Unit) {
     Column(
         modifier = modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Це Підекран Б", style = MaterialTheme.typography.headlineMedium)
+        Text("Це екран Home (Б)", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onNavigateBack) { Text("Назад") }
     }

@@ -10,13 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-// УВАГА НА ІМПОРТИ НИЖЧЕ:
 import com.example.myapp.presentation.MainViewModel
 import com.example.myapp.presentation.components.CategoryItem
 import com.example.myapp.presentation.components.PlaceItem
 
 @Composable
-fun MainScreen(
+fun FavoritesScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = viewModel()
 ) {
@@ -50,9 +49,7 @@ fun MainScreen(
 
         item {
             Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer
-                ),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
                 modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
             ) {
                 Text(

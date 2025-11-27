@@ -7,9 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.AccountCircle // Змінив іконку на більш підходящу
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,11 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
-
-// УВАГА НА ІМПОРТИ НИЖЧЕ:
-import com.example.myapp.presentation.screens.MainScreen
-import com.example.myapp.presentation.screens.SettingsScreen
-import com.example.myapp.presentation.screens.StreetsScreen
+import com.example.myapp.presentation.screens.FavoritesScreen
+import com.example.myapp.presentation.screens.HomeScreen
+import com.example.myapp.presentation.screens.ProfileScreen
 import com.example.myapp.ui.theme.MyAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +42,7 @@ class MainActivity : ComponentActivity() {
 @PreviewScreenSizes
 @Composable
 fun MyAppApp() {
-    var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.STREETS) }
+    var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -60,17 +58,18 @@ fun MyAppApp() {
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val screenModifier = Modifier.padding(innerPadding)
+            
             when (currentDestination) {
-                AppDestinations.STREETS -> StreetsScreen(modifier = screenModifier)
-                AppDestinations.MAIN -> MainScreen(modifier = screenModifier)
-                AppDestinations.SETTINGS -> SettingsScreen(modifier = screenModifier)
+                AppDestinations.HOME -> HomeScreen(modifier = screenModifier)
+                AppDestinations.FAVORITES -> FavoritesScreen(modifier = screenModifier)
+                AppDestinations.PROFILE -> ProfileScreen(modifier = screenModifier)
             }
         }
     }
 }
 
 enum class AppDestinations(val label: String, val icon: ImageVector) {
-    STREETS("Home", Icons.Default.Star),
-    MAIN("Favorites", Icons.Default.MailOutline),
-    SETTINGS("Profile", Icons.Default.Settings),
+    HOME("Home", Icons.Default.Home),
+    FAVORITES("Favorites", Icons.Default.Favorite),
+    PROFILE("Profile", Icons.Default.AccountCircle),
 }
