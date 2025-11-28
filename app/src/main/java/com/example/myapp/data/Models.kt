@@ -1,14 +1,12 @@
 package com.example.myapp.data
 
-data class Category(
+data class CategoryModel(
     val id: Int,
     val name: String
 )
 
-data class Place(
+data class PlaceModel(
     val id: Int,
-    val categoryId: Int,
     val title: String,
-    val description: String,
-    val isFavorite: Boolean = false
+    val description: String
 )

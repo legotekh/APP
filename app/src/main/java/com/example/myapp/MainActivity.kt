@@ -4,13 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle // Змінив іконку на більш підходящу
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
@@ -19,12 +21,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
-import com.example.myapp.presentation.screens.FavoritesScreen
-import com.example.myapp.presentation.screens.HomeScreen
-import com.example.myapp.presentation.screens.ProfileScreen
+import com.example.myapp.presentation.ListScreen // <-- Наш новий екран
 import com.example.myapp.ui.theme.MyAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@PreviewScreenSizes
 @Composable
 fun MyAppApp() {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
@@ -58,11 +57,13 @@ fun MyAppApp() {
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             val screenModifier = Modifier.padding(innerPadding)
-            
+
             when (currentDestination) {
-                AppDestinations.HOME -> HomeScreen(modifier = screenModifier)
-                AppDestinations.FAVORITES -> FavoritesScreen(modifier = screenModifier)
-                AppDestinations.PROFILE -> ProfileScreen(modifier = screenModifier)
+                AppDestinations.HOME -> SimpleTextScreen("Головна", screenModifier)
+                
+                AppDestinations.FAVORITES -> ListScreen(modifier = screenModifier)
+                
+                AppDestinations.PROFILE -> SimpleTextScreen("Профіль", screenModifier)
             }
         }
     }
@@ -70,6 +71,13 @@ fun MyAppApp() {
 
 enum class AppDestinations(val label: String, val icon: ImageVector) {
     HOME("Home", Icons.Default.Home),
-    FAVORITES("Favorites", Icons.Default.Favorite),
-    PROFILE("Profile", Icons.Default.AccountCircle),
+    FAVORITES("Favorites", Icons.Default.List),
+    PROFILE("Profile", Icons.Default.Person),
+}
+
+@Composable
+fun SimpleTextScreen(text: String, modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(text = text, style = MaterialTheme.typography.headlineMedium)
+    }
 }
